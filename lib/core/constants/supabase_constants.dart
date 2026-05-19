@@ -8,6 +8,7 @@ abstract final class SupabaseConstants {
   static const pacientes = 'pacientes';
   static const datosClinicosArea = 'datos_clinicos_area';
   static const evoluciones = 'evoluciones';
+  static const evolucionAnexos = 'evolucion_anexos';
   static const citas = 'citas';
   static const imagenesClinicas = 'imagenes_clinicas';
   static const planesSuscripcion = 'planes_suscripcion';

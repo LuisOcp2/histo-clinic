@@ -14,7 +14,9 @@ class PdfGenerator {
         build: (_) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Text('Consentimiento informado', style: pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold)),
+            pw.Text('Consentimiento informado',
+                style:
+                    pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold)),
             pw.SizedBox(height: 18),
             pw.Text('Paciente: ${paciente.nombreCompleto}'),
             pw.Text('Documento: ${paciente.tipoDoc} ${paciente.numDoc}'),
@@ -24,14 +26,18 @@ class PdfGenerator {
               'Autorizo la valoracion, intervencion y registro de informacion clinica conforme a la normatividad colombiana aplicable a la historia clinica.',
             ),
             pw.Spacer(),
-            pw.Text('Firma paciente/acudiente: ________________________________'),
+            pw.Text(
+                'Firma paciente/acudiente: ________________________________'),
             pw.SizedBox(height: 18),
-            pw.Text('Firma profesional: _______________________________________'),
+            pw.Text(
+                'Firma profesional: _______________________________________'),
           ],
         ),
       ),
     );
-    await Printing.sharePdf(bytes: await doc.save(), filename: 'consentimiento_${paciente.codigo}.pdf');
+    await Printing.sharePdf(
+        bytes: await doc.save(),
+        filename: 'consentimiento_${paciente.codigo}.pdf');
   }
 
   static Future<void> compartirHistoriaClinica({
@@ -43,25 +49,38 @@ class PdfGenerator {
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         build: (_) => [
-          pw.Text('Historia clinica FonoClinic', style: pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold)),
+          pw.Text('Historia clinica FonoClinic',
+              style:
+                  pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold)),
           pw.SizedBox(height: 12),
           pw.Text('${paciente.nombreCompleto} - ${paciente.codigo}'),
-          pw.Text('${paciente.tipoDoc} ${paciente.numDoc} - ${paciente.areaAtencion}'),
+          pw.Text(
+              '${paciente.tipoDoc} ${paciente.numDoc} - ${paciente.areaAtencion}'),
           pw.SizedBox(height: 20),
-          pw.Text('Evoluciones', style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
+          pw.Text('Evoluciones',
+              style:
+                  pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
           ...evoluciones.map(
             (e) => pw.Container(
               margin: const pw.EdgeInsets.only(top: 12),
               padding: const pw.EdgeInsets.all(10),
-              decoration: pw.BoxDecoration(border: pw.Border.all(color: PdfColors.grey400)),
+              decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.grey400)),
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Text('Sesion ${e.numSesion} - ${e.fechaAtencion}'),
+                  pw.Text('Objetivo: ${e.motivoConsulta}'),
                   pw.Text('Hallazgos: ${e.hallazgos}'),
                   pw.Text('Intervencion: ${e.intervencion}'),
                   pw.Text('Respuesta: ${e.respuestaPaciente}'),
-                  pw.Text('Plan: ${e.plan}'),
+                  pw.Text('Plan casero: ${e.plan}'),
+                  ...e.anexos.map(
+                    (a) => pw.Padding(
+                      padding: const pw.EdgeInsets.only(top: 6),
+                      child: pw.Text('${a.titulo}: ${a.contenido}'),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -69,6 +88,7 @@ class PdfGenerator {
         ],
       ),
     );
-    await Printing.sharePdf(bytes: await doc.save(), filename: 'historia_${paciente.codigo}.pdf');
+    await Printing.sharePdf(
+        bytes: await doc.save(), filename: 'historia_${paciente.codigo}.pdf');
   }
 }
