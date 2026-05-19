@@ -1,0 +1,11 @@
+{
+  "name": "FonoClinic",
+  "short_name": "FonoClinic",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0F1923",
+  "theme_color": "#2DD4BF",
+  "description": "Gestion clinica para fonoaudiologia.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}

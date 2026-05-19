@@ -1,0 +1,30 @@
+# Dart / Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+build/
+coverage/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# IDEs
+*.iml
+.idea/
+.vscode/
+
+# Logs and OS files
+logs/
+*.log
+.DS_Store
+Thumbs.db
+
+# Supabase local state
+supabase/.branches/
+supabase/.temp/
+
+# Vercel local metadata
+.vercel/
