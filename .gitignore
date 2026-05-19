@@ -28,3 +28,4 @@ supabase/.temp/
 
 # Vercel local metadata
 .vercel/
+.vercel
