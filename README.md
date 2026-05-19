@@ -42,12 +42,27 @@ flutter run -d chrome
 ## Base de datos
 
 El esquema inicial esta en `supabase/migrations/20260519000100_initial_schema.sql`.
+Los controles de administracion, bloqueo de registros y suscripciones estan en `supabase/migrations/20260519000200_admin_controls.sql`.
 
 Para enlazar y aplicar la migracion a un proyecto Supabase:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\supabase_link_and_push.ps1 -ProjectRef TU_PROJECT_REF -AccessToken TU_ACCESS_TOKEN
 ```
+
+## Admin de plataforma
+
+El panel `/admin` permite abrir o cerrar registros publicos y cambiar tenants entre `trial`, `activo`, `suspendido` y `cancelado`.
+
+La migracion `20260519000200_admin_controls.sql` crea la tabla `app_admins`. Para dar acceso a otro correo, agrega una fila:
+
+```sql
+insert into app_admins (email, nombre)
+values ('admin@tudominio.com', 'Admin')
+on conflict (email) do update set activo = true;
+```
+
+Los tenants suspendidos, cancelados o con trial vencido no pueden consultar ni modificar datos clinicos por RLS.
 
 ## Build web
 

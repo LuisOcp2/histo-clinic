@@ -14,4 +14,10 @@ abstract final class SupabaseConstants {
 
   static const registrarTenantRpc = 'registrar_tenant';
   static const generarCodigoPacienteRpc = 'generar_codigo_paciente';
+  static const getPublicAppSettingsRpc = 'get_public_app_settings';
+  static const isPlatformAdminRpc = 'is_platform_admin';
+  static const adminGetSettingsRpc = 'admin_get_settings';
+  static const adminUpdateSettingsRpc = 'admin_update_settings';
+  static const adminListTenantsRpc = 'admin_list_tenants';
+  static const adminUpdateTenantRpc = 'admin_update_tenant';
 }

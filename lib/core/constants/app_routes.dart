@@ -6,6 +6,7 @@ abstract final class AppRoutes {
   static const agenda = '/agenda';
   static const reportes = '/reportes';
   static const settings = '/settings';
+  static const admin = '/admin';
   static const login = '/login';
   static const register = '/register';
   static const forgotPassword = '/forgot-password';

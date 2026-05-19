@@ -6,6 +6,8 @@ import 'core/constants/app_colors.dart';
 import 'core/constants/app_routes.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/providers/auth_provider.dart';
+import 'presentation/providers/admin_provider.dart';
+import 'presentation/screens/admin/admin_screen.dart';
 import 'presentation/screens/agenda/agenda_screen.dart';
 import 'presentation/screens/agenda/cita_form_screen.dart';
 import 'presentation/screens/auth/forgot_password_screen.dart';
@@ -111,6 +113,9 @@ GoRouter _buildRouter(bool isAuthenticated) {
               path: AppRoutes.reportes,
               builder: (context, state) => const ReporteScreen()),
           GoRoute(
+              path: AppRoutes.admin,
+              builder: (context, state) => const AdminScreen()),
+          GoRoute(
             path: AppRoutes.settings,
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: PerfilScreen()),
@@ -126,7 +131,7 @@ GoRouter _buildRouter(bool isAuthenticated) {
   );
 }
 
-class MainShell extends StatelessWidget {
+class MainShell extends ConsumerWidget {
   const MainShell({required this.child, super.key});
 
   final Widget child;
@@ -140,10 +145,11 @@ class MainShell extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final currentLocation = GoRouterState.of(context).uri.path;
     final currentIndex =
         _tabs.indexWhere((tab) => currentLocation.startsWith(tab.route));
+    final isAdmin = ref.watch(isPlatformAdminProvider).valueOrNull ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -174,6 +180,12 @@ class MainShell extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.notifications_none_outlined),
           ),
+          if (isAdmin)
+            IconButton(
+              tooltip: 'Admin',
+              onPressed: () => context.go(AppRoutes.admin),
+              icon: const Icon(Icons.admin_panel_settings_outlined),
+            ),
         ],
       ),
       body: SafeArea(child: child),
